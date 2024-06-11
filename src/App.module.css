@@ -5,6 +5,10 @@
     min-height: 100vh;
 }
 
+.Main {
+    padding-top: 82px;
+  }
+
 * {
     box-sizing: border-box;
   }
@@ -24,7 +28,7 @@
   }
   
   i {
-    color: #7D5516;
+    color: #000000;
     font-size: 1.3rem;
     padding: 7px;
     vertical-align: middle;
