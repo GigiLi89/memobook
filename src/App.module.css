@@ -14,7 +14,7 @@
   }
   
   a {
-    color: #000000;
+    color: rgb(212, 182, 80);
     transition: color ease-in-out 0.3s;
   }
   
@@ -28,7 +28,7 @@
   }
   
   i {
-    color: #000000;
+    color: rgb(212, 182, 80);
     font-size: 1.3rem;
     padding: 7px;
     vertical-align: middle;
