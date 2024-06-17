@@ -14,24 +14,21 @@ const SignUpForm = () => {
         <Container className={`${appStyles.Content} p-4 `}>
           <h1 className={styles.Header}>sign up</h1>
 
-          <Form>
+<Form>
   <Form.Group controlId="username">
     <Form.Label className="d-none">Username</Form.Label>
-    className={styles.Input}
-    <Form.Control type="text" placeholder="username" name="username"/> 
-  </Form.Group>
+    <Form.Control className={styles.Input} type="text" placeholder="Username" name="Username"/> 
+</Form.Group>
 
-  <Form.Group controlId="password1">
+<Form.Group controlId="password1">
     <Form.Label className="d-none">Password</Form.Label>
-    className={styles.Input}
-    <Form.Control type="password" placeholder="password" name="password"/>
-  </Form.Group>
+    <Form.Control className={styles.Input} type="Password" placeholder="Password" name="Password"/>
+</Form.Group>
 
-  <Form.Group controlId="password2">
+<Form.Group controlId="password2">
     <Form.Label className="d-none">Confirm Password</Form.Label>
-    className={styles.Input}
-    <Form.Control type="password" placeholder="Confirm password" name="password2"/>
-  </Form.Group>
+    <Form.Control className={styles.Input} type="Password" placeholder="Confirm password" name="Password2"/>
+</Form.Group>
 
   <Button
     className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}`}
