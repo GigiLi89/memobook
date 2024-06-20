@@ -56,6 +56,7 @@ function PostCreateForm() {
     formData.append("title", title);
     formData.append("content", content);
     formData.append("image", imageInput.current.files[0]);
+    console.log(formData)
 
     try {
       const { data } = await axiosReq.post("/posts/", formData);
