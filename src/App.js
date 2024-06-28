@@ -78,7 +78,7 @@ function App() {
 
           <Route
             exact
-            path="/message/:id/"
+            path="/chats/"
             render={() => <Message />}
           />
 
