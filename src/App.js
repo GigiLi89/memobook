@@ -82,6 +82,12 @@ function App() {
             render={() => <Message />}
           />
 
+          <Route
+            exact
+            path="/message/:id/"
+            render={() => <Message />}
+          />
+
           <Route render={() => <NotFound />} />
         </Switch>
       </Container>
