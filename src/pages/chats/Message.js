@@ -5,6 +5,7 @@ import { Row, Col, Button, Form, InputGroup } from 'react-bootstrap';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import styles from '../../styles/Message.module.css';
 
 const Message = () => {
   const { id } = useParams();
@@ -13,7 +14,7 @@ const Message = () => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [receiver, setReceiver] = useState('');
-  const [receiverImage, setReceiverImage] = useState("");
+  const [receiverImage, setReceiverImage] = useState('');
   const [editingMessageId, setEditingMessageId] = useState(null);
   const [editingMessageContent, setEditingMessageContent] = useState('');
   const currentUser = useCurrentUser();
@@ -43,11 +44,10 @@ const Message = () => {
 
   async function sendMessage() {
     try {
-      await axios.post(`/chats/${selectedChat}/messages/`, { message: message });
+      await axios.post(`/chats/${selectedChat}/messages/`, { message });
       await getChatDetails(selectedChat);
       setMessage('');
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
   }
@@ -73,7 +73,6 @@ const Message = () => {
       toast.error('Failed to edit message.');
     }
   }
-  
 
   const handleEditClick = (messageId, currentContent) => {
     setEditingMessageId(messageId);
@@ -103,149 +102,178 @@ const Message = () => {
   return (
     <div>
       <ToastContainer />
-      <p style={{ textAlign: 'center' }}>Messages, keep in touch with your loved ones! 
-        <br />Click on the profile you would like to send a message to, write your content in the textfield and click send!</p>
+      <p className={styles.messageContainer}>
+        Messages, keep in touch with your loved ones!
+        <br />
+        Click on the profile you would like to send a message to, write your content in the text field and click send!
+      </p>
       <Row>
         <Col lg={4}>
-          {
-            chatList.map(d => (
-              <div
-                className='d-flex align-items-center mb-2 p-1'
-                key={d.id} style={{ cursor: 'pointer', borderBottom: "1px solid black", border: d.id === selectedChat ? "1px dashed black" : "", borderRadius: "10px" }}
-                onClick={() => {
-                  setSelectedChat(d.id);
-                  setReceiver(d.receiver_username);
-                  d.receiver_username === currentUser.username ? setReceiverImage(d.sender_image) : setReceiverImage(d.receiver_image); 
-                }}
-              >
-                <div>
-                  <img src={d.receiver_image} width={60} height={60} alt="Receiver" /> {}
-                </div>
-                {
-                  d.receiver_username === currentUser.username ? <h5 className='ml-3 font-bold'>{d.sender}</h5> : <h5 className='ml-3 font-bold'>{d.receiver_username}</h5>
-                }
+          {chatList.map(d => (
+            <div
+              className={`${styles.chatItem} ${d.id === selectedChat ? styles.chatItemSelected : ''}`}
+              key={d.id}
+              onClick={() => {
+                setSelectedChat(d.id);
+                setReceiver(d.receiver_username);
+                d.receiver_username === currentUser.username ? setReceiverImage(d.sender_image) : setReceiverImage(d.receiver_image);
+              }}
+            >
+              <div>
+                <img src={d.receiver_image} width={60} height={60} alt='Receiver' /> {}
               </div>
-            ))
-          }
+              {d.receiver_username === currentUser.username ? (
+                <h5 className='ml-3 font-bold'>{d.sender}</h5>
+              ) : (
+                <h5 className='ml-3 font-bold'>{d.receiver_username}</h5>
+              )}
+            </div>
+          ))}
         </Col>
-        <Col lg={8} style={{ border: "1px solid black" }}>
-          <div className='d-flex flex-column' style={{ height: "85vh" }}>
-            <div style={{ flex: 1, height: "65vh", overflowY: "scroll" }} >
+        <Col lg={8} style={{ border: '1px solid black' }}>
+          <div className={`d-flex flex-column ${styles.messageBox}`}>
+            <div className={styles.messageList}>
               <div className='d-flex flex-column mt-4'>
-                {
-                  messages?.map(d => (
-                    d.receiver === currentUser.username ?
-                      (
-                        d.sender !== receiver ?
-                          (
-                            <div style={{ border: "2px dashed #F5F5F5" }} className='d-flex align-items-center mb-2 justify-content-start'>
-                              <img src={receiverImage} width={60} height={60} alt="Receiver" /> {}
-                              {editingMessageId === d.id ? (
-                                <>
-                                  <Form.Control
-                                    value={editingMessageContent}
-                                    onChange={(e) => setEditingMessageContent(e.target.value)}
-                                  />
-                                  <Button variant="success" onClick={() => handleEditSave(d.id)} style={{ marginLeft: "10px" }}>Save</Button>
-                                </>
-                              ) : (
-                                <p style={{ marginTop: "12px", marginLeft: "12px" }}>{d.message}</p>
-                              )}
-                              <Button variant="danger" onClick={() => deleteMessage(d.id)} style={{ marginLeft: "10px" }}>Delete</Button>
-                              {editingMessageId !== d.id && (
-                                <Button variant="primary" onClick={() => handleEditClick(d.id, d.message)} style={{ marginLeft: "10px" }}>Edit</Button>
-                              )}
-                            </div>
-                          )
-                          :
-                          (
-                            <div style={{ border: "2px dashed #F2F3F4" }} className='d-flex align-items-center mb-2 justify-content-end'>
-                              {editingMessageId === d.id ? (
-                                <>
-                                  <Form.Control
-                                    value={editingMessageContent}
-                                    onChange={(e) => setEditingMessageContent(e.target.value)}
-                                  />
-                                  <Button variant="success" onClick={() => handleEditSave(d.id)} style={{ marginLeft: "10px" }}>Save</Button>
-                                </>
-                              ) : (
-                                <p style={{ marginLeft: "auto", marginTop: "12px", marginRight: "12px" }}>{d.message}</p>
-                              )}
-                              <img style={{ borderRadius: "50px" }} src={currentUser.profile_image} width={60} height={60} alt="Current User" /> {}
-                              <Button variant="danger" onClick={() => deleteMessage(d.id)} style={{ marginLeft: "10px" }}>Delete</Button>
-                              {editingMessageId !== d.id && (
-                                <Button variant="primary" onClick={() => handleEditClick(d.id, d.message)} style={{ marginLeft: "10px" }}>Edit</Button>
-                              )}
-                            </div>
-                          ))
-                      :
-                      (
-                        d.sender === receiver ?
-                          (
-                            <div style={{ border: "2px dashed #F5F5F5" }} className='d-flex align-items-center mb-2 justify-content-start'>
-                              <img src={receiverImage} width={60} height={60} alt="Receiver" /> {}
-                              {editingMessageId === d.id ? (
-                                <>
-                                  <Form.Control
-                                    value={editingMessageContent}
-                                    onChange={(e) => setEditingMessageContent(e.target.value)}
-                                  />
-                                  <Button variant="success" onClick={() => handleEditSave(d.id)} style={{ marginLeft: "10px" }}>Save</Button>
-                                </>
-                              ) : (
-                                <p style={{ marginTop: "12px", marginLeft: "12px" }}>{d.message}</p>
-                              )}
-                              <Button variant="danger" onClick={() => deleteMessage(d.id)} style={{ marginLeft: "10px" }}>Delete</Button>
-                              {editingMessageId !== d.id && (
-                                <Button variant="primary" onClick={() => handleEditClick(d.id, d.message)} style={{ marginLeft: "10px" }}>Edit</Button>
-                              )}
-                            </div>
-                          )
-                          :
-                          (
-                            <div style={{ border: "2px dashed #F2F3F4" }} className='d-flex align-items-center mb-2 justify-content-end'>
-                              {editingMessageId === d.id ? (
-                                <>
-                                  <Form.Control
-                                    value={editingMessageContent}
-                                    onChange={(e) => setEditingMessageContent(e.target.value)}
-                                  />
-                                  <Button variant="success" onClick={() => handleEditSave(d.id)} style={{ marginLeft: "10px" }}>Save</Button>
-                                </>
-                              ) : (
-                                <p style={{ marginLeft: "auto", marginTop: "12px", marginRight: "12px" }}>{d.message}</p>
-                              )}
-                              <img style={{ borderRadius: "50px" }} src={currentUser.profile_image} width={60} height={60} alt="Current User" /> {}
-                              <Button variant="danger" onClick={() => deleteMessage(d.id)} style={{ marginLeft: "10px" }}>Delete</Button>
-                              {editingMessageId !== d.id && (
-                                <Button variant="primary" onClick={() => handleEditClick(d.id, d.message)} style={{ marginLeft: "10px" }}>Edit</Button>
-                              )}
-                            </div>
-                          ))
-                  ))
-                }
+                {messages?.map(d => (
+                  d.receiver === currentUser.username ? (
+                    d.sender !== receiver ? (
+                      <div className={`d-flex align-items-center mb-2 justify-content-start ${styles.message}`}>
+                        <img src={receiverImage} width={60} height={60} alt='Receiver' /> {}
+                        {editingMessageId === d.id ? (
+                          <>
+                            <Form.Control
+                              value={editingMessageContent}
+                              onChange={(e) => setEditingMessageContent(e.target.value)}
+                            />
+                            <Button variant='success' onClick={() => handleEditSave(d.id)} style={{ marginLeft: '10px' }}>
+                              Save
+                            </Button>
+                          </>
+                        ) : (
+                          <p className={styles.messageContent}>{d.message}</p>
+                        )}
+                        <Button variant='danger' onClick={() => deleteMessage(d.id)} style={{ marginLeft: '10px' }}>
+                          Delete
+                        </Button>
+                        {editingMessageId !== d.id && (
+                          <Button variant='primary' onClick={() => handleEditClick(d.id, d.message)} style={{ marginLeft: '10px' }}>
+                            Edit
+                          </Button>
+                        )}
+                      </div>
+                    ) : (
+                      <div className={`d-flex align-items-center mb-2 justify-content-end ${styles.messageEnd}`}>
+                        {editingMessageId === d.id ? (
+                          <>
+                            <Form.Control
+                              value={editingMessageContent}
+                              onChange={(e) => setEditingMessageContent(e.target.value)}
+                            />
+                            <Button variant='success' onClick={() => handleEditSave(d.id)} style={{ marginLeft: '10px' }}>
+                              Save
+                            </Button>
+                          </>
+                        ) : (
+                          <p className={`${styles.messageContent} ${styles.messageContentEnd}`}>{d.message}</p>
+                        )}
+                        <img
+                          className={styles.receiverImage}
+                          src={currentUser.profile_image}
+                          width={60}
+                          height={60}
+                          alt='Current User'
+                        /> {}
+                        <Button variant='danger' onClick={() => deleteMessage(d.id)} style={{ marginLeft: '10px' }}>
+                          Delete
+                        </Button>
+                        {editingMessageId !== d.id && (
+                          <Button variant='primary' onClick={() => handleEditClick(d.id, d.message)} style={{ marginLeft: '10px' }}>
+                            Edit
+                          </Button>
+                        )}
+                      </div>
+                    )
+                  ) : (
+                    d.sender === receiver ? (
+                      <div className={`d-flex align-items-center mb-2 justify-content-start ${styles.message}`}>
+                        <img src={receiverImage} width={60} height={60} alt='Receiver' /> {}
+                        {editingMessageId === d.id ? (
+                          <>
+                            <Form.Control
+                              value={editingMessageContent}
+                              onChange={(e) => setEditingMessageContent(e.target.value)}
+                            />
+                            <Button variant='success' onClick={() => handleEditSave(d.id)} style={{ marginLeft: '10px' }}>
+                              Save
+                            </Button>
+                          </>
+                        ) : (
+                          <p className={styles.messageContent}>{d.message}</p>
+                        )}
+                        <Button variant='danger' onClick={() => deleteMessage(d.id)} style={{ marginLeft: '10px' }}>
+                          Delete
+                        </Button>
+                        {editingMessageId !== d.id && (
+                          <Button variant='primary' onClick={() => handleEditClick(d.id, d.message)} style={{ marginLeft: '10px' }}>
+                            Edit
+                          </Button>
+                        )}
+                      </div>
+                    ) : (
+                      <div className={`d-flex align-items-center mb-2 justify-content-end ${styles.messageEnd}`}>
+                        {editingMessageId === d.id ? (
+                          <>
+                            <Form.Control
+                              value={editingMessageContent}
+                              onChange={(e) => setEditingMessageContent(e.target.value)}
+                            />
+                            <Button variant='success' onClick={() => handleEditSave(d.id)} style={{ marginLeft: '10px' }}>
+                              Save
+                            </Button>
+                          </>
+                        ) : (
+                          <p className={`${styles.messageContent} ${styles.messageContentEnd}`}>{d.message}</p>
+                        )}
+                        <img
+                          className={styles.receiverImage}
+                          src={currentUser.profile_image}
+                          width={60}
+                          height={60}
+                          alt='Current User'
+                        /> {}
+                        <Button variant='danger' onClick={() => deleteMessage(d.id)} style={{ marginLeft: '10px' }}>
+                          Delete
+                        </Button>
+                        {editingMessageId !== d.id && (
+                          <Button variant='primary' onClick={() => handleEditClick(d.id, d.message)} style={{ marginLeft: '10px' }}>
+                            Edit
+                          </Button>
+                        )}
+                      </div>
+                    )
+                  )
+                ))}
               </div>
             </div>
-            <div style={{ justifySelf: "flex-end", marginTop: "20px" }}>
-              <InputGroup className="mb-3">
+            <div className={styles.inputGroup}>
+              <InputGroup className='mb-3'>
                 <Form.Control
-                  placeholder="Send message"
-                  aria-label="send message"
-                  aria-describedby="basic-addon2"
+                  placeholder='Send message'
+                  aria-label='send message'
+                  aria-describedby='basic-addon2'
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                 />
-                <Button variant="outline-secondary" id="button-addon2" onClick={() => sendMessage()}>
+                <Button variant='outline-secondary' id='button-addon2' onClick={() => sendMessage()}>
                   Send
                 </Button>
               </InputGroup>
-              {}
             </div>
           </div>
         </Col>
       </Row>
     </div>
   );
-}
+};
 
 export default Message;
