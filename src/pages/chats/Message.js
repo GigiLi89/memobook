@@ -108,7 +108,7 @@ const Message = () => {
                           (
                             <div style={{ border: "2px dashed #F2F3F4" }} className='d-flex align-items-center mb-2 justify-content-end'>
                               <p style={{ marginLeft: "auto", marginTop: "12px", marginRight: "12px" }}>{d.message}</p>
-                              <img style={{ borderRadius: "50px" }} src={currentUser.profile_image} width={60} height={60} alt="Current User" /> {/* Added alt attribute */}
+                              <img style={{ borderRadius: "50px" }} src={currentUser.profile_image} width={60} height={60} alt="Current User" /> {}
                             </div>
                           ))
                       :
@@ -124,7 +124,7 @@ const Message = () => {
                           (
                             <div style={{ border: "2px dashed #F2F3F4" }} className='d-flex align-items-center mb-2 justify-content-end'>
                               <p style={{ marginLeft: "auto", marginTop: "12px", marginRight: "12px" }}>{d.message}</p>
-                              <img style={{ borderRadius: "50px" }} src={currentUser.profile_image} width={60} height={60} alt="Current User" /> {/* Added alt attribute */}
+                              <img style={{ borderRadius: "50px" }} src={currentUser.profile_image} width={60} height={60} alt="Current User" /> {}
                             </div>
                           ))
                   ))
