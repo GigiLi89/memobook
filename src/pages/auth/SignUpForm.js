@@ -17,6 +17,8 @@ import {
 } from "react-bootstrap";
 import axios from "axios";
 import { useRedirect } from "../../hooks/useRedirect";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUpForm = () => {
   useRedirect("loggedIn");
@@ -42,14 +44,19 @@ const SignUpForm = () => {
     event.preventDefault();
     try {
       await axios.post("/dj-rest-auth/registration/", signUpData);
-      history.push("/signin");
+      toast.success("Signed up successfully!");
+      setTimeout(() => {
+        history.push("/signin");
+      }, 3000); // 3-second delay
     } catch (err) {
       setErrors(err.response?.data);
+      toast.error("Failed to sign up. Please check the errors and try again.");
     }
   };
 
   return (
     <Row className={styles.Row}>
+      <ToastContainer />
       <Col className="my-auto py-2 p-md-2" md={6}>
         <Container className={`${appStyles.Content} p-4 `}>
           <h1 className={styles.Header}>sign up</h1>
@@ -130,7 +137,7 @@ const SignUpForm = () => {
         md={6}
         className={`my-auto d-none d-md-block p-2 ${styles.SignUpCol}`}
       >
-<Image
+        <Image
           className={`${appStyles.FillerImage}`}
           src={signupMemo}
         />
