@@ -8,12 +8,19 @@ Link to the deployed project: (https://memobook-af0ef88c7472.herokuapp.com/signu
 
 Memobook, or Memo for short, is a platform for friends and family to connect and share posts with stories and images with eachother. Users are able to interact with posts/eachother by likes, comments and even chats. 
 
-The idea for this project came to me as I was buildning a project along side the learning materials from Code Institute, but with a twist and the idea of expanding the idea with something more. Memobooks concept was developed as a interactive place for people to connect and as the in the name, shar memos - Memories!
+The idea for this project came to me as I was buildning a project along side the learning materials from Code Institute's walkthrough Moment, but with a twist and the idea of expanding the idea with something more. Memobooks concept was developed as a interactive place for people to connect and as the in the name, shar memos - Memories! After consulting with my mentor he also recommended to follow along with the walkthroughs and add at least one more function that is my own. 
 
 The project is built in two parts, a backend and a frontend, keeping them seperate for a better overview. This part is the backend.
 
 Link to the frontend repository on Github: (https://github.com/GigiLi89/memobook)
 Link to the backend repository on Github: (https://github.com/GigiLi89/memobook-drfapi)
+
+During the build of this project I mostly followed the walkthroughs provided by Code Institute. I've had a lot of issues and errors during the process but with the help of different tutors we've managed to fix it. Errors occured with the wrong versions, new errors either I or the tutors seen before etc. Therefor we've experiemnted and tried to solve the errors along the way. 
+
+IMPORTANT: before running the frontend from the IDE, follow these steps in the terminal:
+1) nvm install 16
+2) nvm use 16
+3) npm start
 
 ---
 
@@ -173,6 +180,39 @@ Anyone interested in staying in touch with others or just wants to keep updates 
 
 The site was pushed to Github Pages and deployed to Heroku. 
 Link to the live page: (https://memobook-af0ef88c7472.herokuapp.com/)
+
+1) Make sure everything is pushed to Github.
+2) Login to Heroku and create a new app and follow the steps (the name you choose needs to be unique).
+3) When app has been created got to settings, under Config Vars:
+- key: SECRET_KEY   value: SECRET_KEY_VALUE
+
+(Using any secret key generator or use the one created from Django)
+
+- key: DATABASE_URL   value: DATABASE_URL_VALUE 
+
+(DATABASE_URL is your PostgreSQL database url you get from CI Database.)
+
+- key: CLOUDINARY_URL   value: CLOUDINARY_URL_VALUE
+
+(Get this information from your personal Cloudinary account in the dashboard)
+
+Do not share this information or publish it to your Github repository or the site may be compromised and vulnerable.
+
+4) In the Deployment section, select Github as a method
+5) Search for your repository (exactly as it's named) and click search
+6) Click on the connect button to link up the repository
+7) Scroll down to the bottom of the page to Manual deploy and click Deploy Branch
+8) The app will start deploying and you can see the log as well
+9) When the app is created you will see that is has been successfully built in the log and you can then click on Open App to see your final product. 
+
+Make sure to deploy again if you make any changes to the files.
+
+---
+# Resources
+
+# Credits
+
+
 
 # Testing
 The testing was made and documented in a seperate file.

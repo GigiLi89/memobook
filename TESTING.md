@@ -42,3 +42,22 @@
 
 ---
 
+# Troubleshooting
+
+When I was creating this project I has a couple of issues and errors that I spent time troubleshooting and resolving. Some of them with tutors that was new to us. I also spent time trying to migrate over to Gitpod Enterprise as I had some issues with that I a lot of contact with student care and tutors. Everything finally went through and the project was finally moved successfully. 
+
+I started by building the DRF API but ended up going back and forward between the backend and frontend. Which suited me the best so I can have full understanding and control over a specific section. 
+
+I ran into some issues with the avatar (profile image) in messages where it was showing the same image on both sides and it was only showing the image of the profile I was logged into. I finally manage to sort that out. I then spent some time to troubleshoot the navigationbar where I have added the Message link which gave me a "Page not found", after checking all the code I found that the route was having an ":id" at the end. 
+
+Like I've already mentioned, I've had issues with wrong versions of packages and other issues and that has been the main issue. I've had a lot of contact with the tutors and some of the issues have we solved completely and others are in someway there but managable. For example:
+
+Before running the frontend, type this in the terminal:
+1) npm install 16
+2) npm use 16
+3) nvm start
+
+---
+
+# Lighthouse Testing
+
