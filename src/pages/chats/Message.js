@@ -58,6 +58,10 @@ const Message = () => {
     }
   }, [selectedChat]);
 
+  if (!currentUser) {
+    return <p>Please sign in to view your messages.</p>;
+  }
+
   return (
     <div>
       <p style={{ textAlign: 'center' }}>Messages, keep in touch with your loved ones! 
