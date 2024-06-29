@@ -3,6 +3,8 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { Row, Col, Button, Form, InputGroup } from 'react-bootstrap';
 import { useCurrentUser } from '../../contexts/CurrentUserContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Message = () => {
   const { id } = useParams();
@@ -12,6 +14,8 @@ const Message = () => {
   const [message, setMessage] = useState('');
   const [receiver, setReceiver] = useState('');
   const [receiverImage, setReceiverImage] = useState("");
+  const [editingMessageId, setEditingMessageId] = useState(null);
+  const [editingMessageContent, setEditingMessageContent] = useState('');
   const currentUser = useCurrentUser();
 
   const createChat = useCallback(async () => {
@@ -48,9 +52,43 @@ const Message = () => {
     }
   }
 
+  async function deleteMessage(messageId) {
+    try {
+      await axios.delete(`/chats/${selectedChat}/messages/${messageId}/`);
+      await getChatDetails(selectedChat);
+      toast.success('Message deleted successfully!');
+    } catch (err) {
+      console.log(err);
+      toast.error('Failed to delete message.');
+    }
+  }
+  
+  async function editMessage(messageId, newContent) {
+    try {
+      await axios.put(`/chats/${selectedChat}/messages/${messageId}/`, { message: newContent });
+      await getChatDetails(selectedChat);
+      toast.success('Message edited successfully!');
+    } catch (err) {
+      console.log(err);
+      toast.error('Failed to edit message.');
+    }
+  }
+  
+
+  const handleEditClick = (messageId, currentContent) => {
+    setEditingMessageId(messageId);
+    setEditingMessageContent(currentContent);
+  };
+
+  const handleEditSave = (messageId) => {
+    editMessage(messageId, editingMessageContent);
+    setEditingMessageId(null);
+    setEditingMessageContent('');
+  };
+
   useEffect(() => {
     getChatList();
-  }, [id, getChatList]); 
+  }, [id, getChatList]);
 
   useEffect(() => {
     if (selectedChat) {
@@ -64,8 +102,9 @@ const Message = () => {
 
   return (
     <div>
+      <ToastContainer />
       <p style={{ textAlign: 'center' }}>Messages, keep in touch with your loved ones! 
-        <br/>Click on the profile you would like to send a message to, write your content in the textfield and click send!</p>
+        <br />Click on the profile you would like to send a message to, write your content in the textfield and click send!</p>
       <Row>
         <Col lg={4}>
           {
@@ -101,14 +140,42 @@ const Message = () => {
                           (
                             <div style={{ border: "2px dashed #F5F5F5" }} className='d-flex align-items-center mb-2 justify-content-start'>
                               <img src={receiverImage} width={60} height={60} alt="Receiver" /> {}
-                              <p style={{ marginTop: "12px", marginLeft: "12px" }}>{d.message}</p>
+                              {editingMessageId === d.id ? (
+                                <>
+                                  <Form.Control
+                                    value={editingMessageContent}
+                                    onChange={(e) => setEditingMessageContent(e.target.value)}
+                                  />
+                                  <Button variant="success" onClick={() => handleEditSave(d.id)} style={{ marginLeft: "10px" }}>Save</Button>
+                                </>
+                              ) : (
+                                <p style={{ marginTop: "12px", marginLeft: "12px" }}>{d.message}</p>
+                              )}
+                              <Button variant="danger" onClick={() => deleteMessage(d.id)} style={{ marginLeft: "10px" }}>Delete</Button>
+                              {editingMessageId !== d.id && (
+                                <Button variant="primary" onClick={() => handleEditClick(d.id, d.message)} style={{ marginLeft: "10px" }}>Edit</Button>
+                              )}
                             </div>
                           )
                           :
                           (
                             <div style={{ border: "2px dashed #F2F3F4" }} className='d-flex align-items-center mb-2 justify-content-end'>
-                              <p style={{ marginLeft: "auto", marginTop: "12px", marginRight: "12px" }}>{d.message}</p>
+                              {editingMessageId === d.id ? (
+                                <>
+                                  <Form.Control
+                                    value={editingMessageContent}
+                                    onChange={(e) => setEditingMessageContent(e.target.value)}
+                                  />
+                                  <Button variant="success" onClick={() => handleEditSave(d.id)} style={{ marginLeft: "10px" }}>Save</Button>
+                                </>
+                              ) : (
+                                <p style={{ marginLeft: "auto", marginTop: "12px", marginRight: "12px" }}>{d.message}</p>
+                              )}
                               <img style={{ borderRadius: "50px" }} src={currentUser.profile_image} width={60} height={60} alt="Current User" /> {}
+                              <Button variant="danger" onClick={() => deleteMessage(d.id)} style={{ marginLeft: "10px" }}>Delete</Button>
+                              {editingMessageId !== d.id && (
+                                <Button variant="primary" onClick={() => handleEditClick(d.id, d.message)} style={{ marginLeft: "10px" }}>Edit</Button>
+                              )}
                             </div>
                           ))
                       :
@@ -117,14 +184,42 @@ const Message = () => {
                           (
                             <div style={{ border: "2px dashed #F5F5F5" }} className='d-flex align-items-center mb-2 justify-content-start'>
                               <img src={receiverImage} width={60} height={60} alt="Receiver" /> {}
-                              <p style={{ marginTop: "12px", marginLeft: "12px" }}>{d.message}</p>
+                              {editingMessageId === d.id ? (
+                                <>
+                                  <Form.Control
+                                    value={editingMessageContent}
+                                    onChange={(e) => setEditingMessageContent(e.target.value)}
+                                  />
+                                  <Button variant="success" onClick={() => handleEditSave(d.id)} style={{ marginLeft: "10px" }}>Save</Button>
+                                </>
+                              ) : (
+                                <p style={{ marginTop: "12px", marginLeft: "12px" }}>{d.message}</p>
+                              )}
+                              <Button variant="danger" onClick={() => deleteMessage(d.id)} style={{ marginLeft: "10px" }}>Delete</Button>
+                              {editingMessageId !== d.id && (
+                                <Button variant="primary" onClick={() => handleEditClick(d.id, d.message)} style={{ marginLeft: "10px" }}>Edit</Button>
+                              )}
                             </div>
                           )
                           :
                           (
                             <div style={{ border: "2px dashed #F2F3F4" }} className='d-flex align-items-center mb-2 justify-content-end'>
-                              <p style={{ marginLeft: "auto", marginTop: "12px", marginRight: "12px" }}>{d.message}</p>
+                              {editingMessageId === d.id ? (
+                                <>
+                                  <Form.Control
+                                    value={editingMessageContent}
+                                    onChange={(e) => setEditingMessageContent(e.target.value)}
+                                  />
+                                  <Button variant="success" onClick={() => handleEditSave(d.id)} style={{ marginLeft: "10px" }}>Save</Button>
+                                </>
+                              ) : (
+                                <p style={{ marginLeft: "auto", marginTop: "12px", marginRight: "12px" }}>{d.message}</p>
+                              )}
                               <img style={{ borderRadius: "50px" }} src={currentUser.profile_image} width={60} height={60} alt="Current User" /> {}
+                              <Button variant="danger" onClick={() => deleteMessage(d.id)} style={{ marginLeft: "10px" }}>Delete</Button>
+                              {editingMessageId !== d.id && (
+                                <Button variant="primary" onClick={() => handleEditClick(d.id, d.message)} style={{ marginLeft: "10px" }}>Edit</Button>
+                              )}
                             </div>
                           ))
                   ))
