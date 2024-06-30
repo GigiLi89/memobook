@@ -208,11 +208,28 @@ Do not share this information or publish it to your Github repository or the sit
 Make sure to deploy again if you make any changes to the files.
 
 ---
-# Resources
 
-# Credits
+# Credits and Resources
+- Canva, to create images and the logo
+- Colour picker: https://www.w3schools.com/colors/colors_picker.asp
+- MD convert: https://tabletomarkdown.com/convert-spreadsheet-to-markdown/
+- Font Awesome: https://fontawesome.com/
+- Google Fonts: https://fonts.google.com/
+- Favicon: https://favicon.io/favicon-converter/
+- Converter, from PNG to WEBP: https://convertio.co/
+- React bootstrap: https://react-bootstrap.github.io/ + https://react-bootstrap.netlify.app/
+- React Responsive Website tutorial: https://www.youtube.com/watch?v=-KjSWqdvPb8
+- React tutorial: https://www.youtube.com/watch?v=SqcY0GlETPk
+- The tutor team ad Code Institute and my coder friend. 
+- Code Institute study material
 
 
+### Code
+- Code Institute Moment Tutorial Project, used through as a basis for the creation of this project
+CREDIT: Code Institute Moment Tutuorial Project
+URL: https://github.com/Code-Institute-Solutions/moments
+
+---
 
 # Testing
 The testing was made and documented in a seperate file.
