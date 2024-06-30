@@ -57,7 +57,3 @@ Before running the frontend, type this in the terminal:
 2) npm use 16
 3) nvm start
 
----
-
-# Lighthouse Testing
-

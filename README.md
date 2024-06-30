@@ -2,7 +2,7 @@
 
 # About / Introduction
 
-Link to the deployed project: (https://memobook-af0ef88c7472.herokuapp.com/signup)
+Link to the deployed project: (https://memobook-af0ef88c7472.herokuapp.com/)
 
 ![Responsive](src/assets/responsive_m.png)
 
@@ -14,6 +14,7 @@ The project is built in two parts, a backend and a frontend, keeping them sepera
 
 Link to the frontend repository on Github: (https://github.com/GigiLi89/memobook)
 Link to the backend repository on Github: (https://github.com/GigiLi89/memobook-drfapi)
+Link to the GitHub project User stories: (https://github.com/users/GigiLi89/projects/6)
 
 During the build of this project I mostly followed the walkthroughs provided by Code Institute. I've had a lot of issues and errors during the process but with the help of different tutors we've managed to fix it. Errors occured with the wrong versions, new errors either I or the tutors seen before etc. Therefor we've experiemnted and tried to solve the errors along the way. 
 
@@ -23,6 +24,14 @@ IMPORTANT: before running the frontend from the IDE, follow these steps in the t
 3) npm start
 
 ---
+
+I've used Google Fonts and picked my favorite font: Poppins, with Sans Serif as default. I then wanted som golden/brown colours byt I still wanted to keep it clean since it is a platform for people to add their own posts I want to keep everythin else around clean. 
+
+![UX](src/assets/ux_md.png)
+
+The main colour is brown and gold that goes with the logo at the upper left corner that I've made in Canva. 
+
+![[#462f0c]](src/assets/colour_md.png) #462f0c
 
 # Wireframes (created in Balsamiq)
 
@@ -144,6 +153,16 @@ User can sign out from the page simply by clicking the signout button at the top
 
 ---
 
+## Resuable components throughout the projects: 
+
+- Assett: used to render a spinner, an image and a message.
+- Avatar: is used in many places throughout the project such as in the NavBar (when logged in), popular list, message list etc.
+- MoreDropDown: Displays Dropdown menu with options to edit and delete. 
+- NavBar: Used throughout the site no matter which page your on and shows different depending on signed in or signed out. 
+- NotFound: Basically gives user a 404 (not found) if page is not found.
+
+---
+
 # Future Features
 Some possible features in the future:
 - Notifications, lets the user now that they have received a like, a comment or a follow. 
@@ -173,6 +192,26 @@ Some possible features in the future:
 Potential users
 From children to adults can use the platform. Children should most likely have permission for an adult first. 
 Anyone interested in staying in touch with others or just wants to keep updates about others. 
+
+---
+
+# Packages/Libraries
+
+- jest-dom: Provides custom Jest matchers to test the state of the DOM. Useful for improving the readability and maintainability of test assertions.
+- axios: A promise-based HTTP client for making requests to a server, commonly used for fetching or saving data.
+- bootstrap: A popular CSS framework for developing responsive and mobile-first websites, providing ready-to-use components and utilities.
+- express: A minimal and flexible Node.js web application framework, providing a robust set of features for web and mobile applications.
+- infinite-scroll-component: A React component to implement infinite scrolling functionality, useful for loading content dynamically as the user scrolls.
+- jwt-decode: A small library that decodes JSON Web Tokens (JWTs) without verifying the signature, used to extract payload information.
+- react: A JavaScript library for building user interfaces, particularly single-page applications where you can create reusable UI components.
+- react-bootstrap: Provides Bootstrap components as React components, making it easier to use Bootstrap in a React project.
+- react-dom: Serves as the entry point to the DOM and server renderers for React, handling the rendering of React components to the DOM.
+- react-infinite-scroll-component: Another React component for adding infinite scrolling functionality, with features such as pull-to-refresh and error handling.
+- react-router-dom: A collection of navigational components for React applications, enabling dynamic routing and navigation between different views.
+- react-scripts: Part of Create React App, providing a set of scripts and configurations to simplify the development and build process of a React app.
+- react-toastify: A React library for displaying notifications and toasts, allowing you to show feedback messages to users in an easy way.
+- serve: A zero-configuration command-line HTTP server to serve static files, often used for serving a production build of a React application.
+- web-vitals: A library for measuring essential web performance metrics, providing insights into the performance of your application from the user's perspective.
 
 ---
 
