@@ -3,6 +3,7 @@
 # About / Introduction
 
 Link to the deployed project: (https://memobook-af0ef88c7472.herokuapp.com/)
+Link to the deployed backend app (https://memobook-drfapi-88acd1672bdf.herokuapp.com/)
 
 ![Responsive](src/assets/responsive_m.png)
 
@@ -261,6 +262,7 @@ Make sure to deploy again if you make any changes to the files.
 - React tutorial: https://www.youtube.com/watch?v=SqcY0GlETPk
 - The tutor team ad Code Institute and my coder friend. 
 - Code Institute study material
+- React app tutorial: https://www.youtube.com/watch?v=domt_Sx-wTY + https://www.youtube.com/watch?v=jcOKU9f86XE + https://www.freecodecamp.org/news/building-a-real-time-chat-app-with-reactjs-and-firebase/ + https://dev.to/nadim_ch0wdhury/how-to-build-a-chat-messaging-app-in-reactjs-4aie
 
 
 ### Code
