@@ -1,3 +1,4 @@
+// Code from Code Institutes walkthrough project and study material
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { axiosReq, axiosRes } from "../api/axiosDefaults";

@@ -1,3 +1,4 @@
+// Code from Code Institutes walkthrough project and study material
 import React from "react";
 import { Spinner } from "react-bootstrap";
 import styles from "../styles/Asset.module.css";

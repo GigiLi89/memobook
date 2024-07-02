@@ -1,3 +1,4 @@
+// Code from Code Institutes walkthrough project and study material //
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";

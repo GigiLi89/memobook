@@ -1,3 +1,4 @@
+// Code from Code Institutes walkthrough project and study material
 import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import styles from "../styles/MoreDropdown.module.css";

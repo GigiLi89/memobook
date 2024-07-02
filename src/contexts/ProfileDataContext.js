@@ -1,3 +1,4 @@
+// Code from Code Institutes walkthrough project and study material
 import { createContext, useContext, useEffect, useState } from "react";
 import { axiosReq, axiosRes } from "../api/axiosDefaults";
 import { useCurrentUser } from "../contexts/CurrentUserContext";

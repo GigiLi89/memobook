@@ -1,3 +1,4 @@
+// Code from Code Institutes walkthrough project and study material
 import React from "react";
 import NoResults from "../assets/no-results.png";
 import styles from "../styles/NotFound.module.css";

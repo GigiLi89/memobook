@@ -1,3 +1,4 @@
+// Code partly from Code Institutes walkthrough project and study material
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";

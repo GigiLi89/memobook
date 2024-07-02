@@ -1,3 +1,4 @@
+// Code from Code Institutes walkthrough project and study material
 import { useEffect, useRef, useState } from "react";
 
 const useClickOutsideToggle = () => {
